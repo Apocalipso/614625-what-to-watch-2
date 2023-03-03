@@ -1,0 +1,16 @@
+{
+    "name": "htmlacademy/what-to-watch",
+    "autoload": {
+        "psr-4": {
+            "WhatToWatch\\": "scr/"
+        }
+    },
+    "authors": [
+        {
+            "name": "apocalipso"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5"
+    }
+}
