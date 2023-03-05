@@ -2,8 +2,9 @@
 require 'vendor/autoload.php';
 use WhatToWatch\services\FilmGetService;
 
-$film = new FilmGetService();
+$interface = new WhatToWatch\services\OmdbFilmRepository();
+
+$film = new FilmGetService($interface);
 
 $film->save('tt3896198');
-$film->getInfo();
-echo $film->showInfo();
+echo $film->getInfo();
