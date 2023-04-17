@@ -2,16 +2,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Responses\SuccessResponse;
+use App\Http\Responses\ErrorResponse;
+
 
 class UserController extends Controller
 {
-    public function show($id)
+    public function show($id): SuccessResponse|ErrorResponse
     {
-        return 'show' . $id;
+        return new ErrorResponse([], Response::HTTP_NOT_FOUND);
     }
 
-    public function update($id)
+    public function update(Request $request, $id): SuccessResponse|ErrorResponse
     {
-        return 'update' . $id;
+        return new SuccessResponse();
     }
 }
