@@ -2,20 +2,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Responses\SuccessResponse;
+use App\Http\Responses\ErrorResponse;
 class PromoController extends Controller
 {
-    public function index()
+    public function index(): SuccessResponse|ErrorResponse
     {
-        return 'Получение промо-фильма';
+        return new ErrorResponse([], Response::HTTP_NOT_FOUND);
     }
 
-    public function store($id)
+    public function store(Request $request, $id): SuccessResponse|ErrorResponse
     {
-        return 'добавление промо фильма' . $id;
+        return new SuccessResponse([], Response::HTTP_CREATED);
     }
 
-    public function destroy($id)
+    public function destroy($id): SuccessResponse|ErrorResponse
     {
-        return 'удаление промо фильма' . $id;
+        return new SuccessResponse([], Response::HTTP_NO_CONTENT);
     }
 }

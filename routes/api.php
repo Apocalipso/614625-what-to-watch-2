@@ -9,6 +9,7 @@ use App\Http\Controllers\SimilarController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\FilmController;
 
 /*
 |--------------------------------------------------------------------------

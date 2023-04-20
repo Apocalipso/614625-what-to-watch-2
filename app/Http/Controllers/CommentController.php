@@ -2,25 +2,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Responses\SuccessResponse;
+use App\Http\Responses\ErrorResponse;
 class CommentController extends Controller
 {
-    public function index()
+    public function index(): SuccessResponse|ErrorResponse
     {
-        return 'спиисок отзывов к фильму';
+        return new SuccessResponse();
     }
 
-    public function store()
+    public function store(Request $request): SuccessResponse|ErrorResponse
     {
-        return 'добавление отзыва к фильму';
+        return new ErrorResponse();
     }
 
-    public function update()
+    public function update(Request $request, $id): SuccessResponse|ErrorResponse
     {
-        return 'редактирование отзыва к фильму';
+        return new SuccessResponse();
     }
 
-    public function destroy()
+    public function destroy($id): SuccessResponse|ErrorResponse
     {
-        return 'удаление отзыва к фильму';
+        return new ErrorResponse([], Response::HTTP_FORBIDDEN, 'Комментарий удалить невозможно.');
     }
 }
