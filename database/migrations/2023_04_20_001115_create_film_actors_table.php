@@ -8,16 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     * Таблица связи фильмов с жанрами
+     * Таблица связи фильмов с участвовавшими в нём актёрами
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('film_genre', function (Blueprint $table) {
+        Schema::create('film_actors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('film_id')->constrained()->onDelete('cascade');
-            $table->foreignId('genre_id')->constrained()->onDelete('cascade');
+            $table->foreignId('actor_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('film_genre');
+        Schema::dropIfExists('film_actors');
     }
 };
