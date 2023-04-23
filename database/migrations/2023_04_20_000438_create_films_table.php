@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedInteger('released')->nullable();
             $table->string('imdb_id')->unique();
             $table->set('status', ['pending', 'on moderation', 'ready'])->nullable();
-            $table->unsignedInteger('rating')->nullable();
+            $table->float('rating',8,1)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
