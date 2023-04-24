@@ -20,16 +20,21 @@ class Film extends Model
 
     public function genres(): BelongsToMany
     {
-        return $this->belongsToMany(Genre::class, 'films_genres', 'film_id', 'genre_id');
+        return $this->belongsToMany(Genre::class, 'film_genres', 'film_id', 'genre_id');
     }
 
     public function actors(): BelongsToMany
     {
-        return $this->belongsToMany(Actor::class, 'films_actors', 'film_id', 'actor_id');
+        return $this->belongsToMany(Actor::class, 'film_actors', 'film_id', 'actor_id');
     }
 
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function directors(): HasMany
+    {
+        return $this->hasMany(Director::class);
     }
 }
