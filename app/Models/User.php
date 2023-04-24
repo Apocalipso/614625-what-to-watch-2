@@ -2,15 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * Таблица БД, ассоциированная с моделью.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * Значения по умолчанию для атрибутов модели.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_moderator' => false,
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +59,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function films(): BelongsToMany
+    {
+        return $this->belongsToMany(Film::class, 'favorites', 'user_id', 'film_id');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
