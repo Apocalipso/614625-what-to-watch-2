@@ -24,15 +24,15 @@ use App\Http\Controllers\FilmController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::resource('user', UserController::class);
+Route::middleware('auth:sanctum')->resource('user', UserController::class);
 
 Route::resource('films', FilmController::class);
 
-Route::prefix('films/{id}')->group(function () {
+Route::prefix('films/{id}')->middleware('auth:sanctum')->group(function () {
     Route::get('/similar', [SimilarController::class, 'index']);
     Route::post('/favorite', [FavoriteController::class, 'store']);
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
