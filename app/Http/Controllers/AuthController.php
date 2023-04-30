@@ -52,6 +52,6 @@ class AuthController extends Controller
     public function logout(): SuccessResponse|ErrorResponse
     {
         Auth::user()->tokens()->delete();
-        return new SuccessResponse(null, Response::HTTP_NO_CONTENT);
+        return new SuccessResponse([], Response::HTTP_NO_CONTENT);
     }
 }
