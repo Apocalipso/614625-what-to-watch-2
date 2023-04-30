@@ -7,23 +7,19 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Responses\SuccessResponse;
 use App\Http\Responses\ErrorResponse;
-use App\Models\User;
-use App\Http\Request\LoginRequest;
-use App\Http\Request\RegisterRequest;
+use \App\Models\User;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
     public function register(RegisterRequest $request) : SuccessResponse|ErrorResponse
     {
-        var_dump( $request);
-        exit;
         $params = $request->safe()->except('file');
 
         $params['password'] = Hash::make($params['password']);
 
         $user = User::create($params);
-        //var_dump($user);
-        //exit;
 
         $token = $user->createToken('auth-token');
 
@@ -37,8 +33,6 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): SuccessResponse|ErrorResponse
     {
-        var_dump($request);
-        exit;
         if (!Auth::attempt($request->validated())) {
             abort(Response::HTTP_UNAUTHORIZED, trans('auth.failed'));
         }
@@ -57,9 +51,7 @@ class AuthController extends Controller
 
     public function logout(): SuccessResponse|ErrorResponse
     {
-        echo 'asdsad';
         Auth::user()->tokens()->delete();
-
-        return new SuccessResponse([], Response::HTTP_NO_CONTENT);
+        return new SuccessResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
