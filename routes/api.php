@@ -55,5 +55,3 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [PromoController::class, 'destroy']);
     });
 });
-
-
