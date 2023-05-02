@@ -25,7 +25,7 @@ abstract class AbstractResponse implements Responsable
      * @param $request
      * @return JsonResponse|Response
      */
-    public function toResponse($request): JsonResponse|Response
+    public function toResponse($request): Response
     {
         return response()->json($this->makeResponseData(), $this->code);
     }
@@ -33,7 +33,7 @@ abstract class AbstractResponse implements Responsable
     /**
      * @return array|null
      */
-    protected function prepareData(): ?array
+    protected function prepareData(): array
     {
         if ($this->data instanceof Arrayable) {
             return $this->data->toArray();
@@ -44,5 +44,5 @@ abstract class AbstractResponse implements Responsable
     /**
      * @return array|null
      */
-    abstract protected function makeResponseData(): ?array;
+    abstract protected function makeResponseData(): array;
 }
