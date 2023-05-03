@@ -25,3 +25,5 @@ class Comment extends Model
             ]);
     }
 }
+
+
