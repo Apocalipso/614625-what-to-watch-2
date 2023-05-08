@@ -37,4 +37,9 @@ class Film extends Model
     {
         return $this->hasMany(Director::class);
     }
+
+    public function getRating(): float
+    {
+        return round($this->comments->avg('rating'), 1);
+    }
 }
