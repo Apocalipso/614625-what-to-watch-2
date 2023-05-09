@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Comment;
+use App\Models\Film;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use \App\Models\Comment;
-use \App\Models\Film;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class FilmTest extends TestCase
 {
