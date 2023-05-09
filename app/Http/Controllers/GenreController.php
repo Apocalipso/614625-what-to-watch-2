@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Responses\SuccessResponse;
 use App\Http\Responses\ErrorResponse;
+use App\services\PermissionService;
+
 
 class GenreController extends Controller
 {
@@ -18,9 +20,12 @@ class GenreController extends Controller
         return new SuccessResponse([], Response::HTTP_CREATED);
     }
 
-    public function update(Request $request, $id): SuccessResponse|ErrorResponse
+    public function update(Request $request,int $id): SuccessResponse|ErrorResponse
     {
-        return new SuccessResponse([], Response::HTTP_NO_CONTENT);
+        if (!PermissionService::checkPermission() ) {
+            abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
+        }
+        return new SuccessResponse();
     }
 
     public function destroy($id): SuccessResponse|ErrorResponse

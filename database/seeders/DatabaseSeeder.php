@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Genre::factory(10)->create();
 
-
         FilmActor::factory()
             ->count(50)
             ->state(new Sequence(
