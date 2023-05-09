@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Responses\SuccessResponse;
 use App\Http\Responses\ErrorResponse;
+use App\services\PermissionService;
 class FilmController extends Controller
 {
     public function index(): SuccessResponse|ErrorResponse
@@ -15,17 +16,24 @@ class FilmController extends Controller
 
     public function store(Request $request): SuccessResponse|ErrorResponse
     {
+        if (!PermissionService::checkPermission()) {
+            abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
+        }
+
         return new SuccessResponse([], Response::HTTP_CREATED);
     }
 
     public function show($id): SuccessResponse|ErrorResponse
     {
-        $data = ['Error' => 'Error getting data.'];
-        return new ErrorResponse($data);
+        return new SuccessResponse();
     }
 
-    public function update(Request $request, $id): SuccessResponse|ErrorResponse
+    public function update(Request $request,int $id): SuccessResponse|ErrorResponse
     {
-        return new SuccessResponse([], Response::HTTP_NO_CONTENT);
+        if (!PermissionService::checkPermission()) {
+            abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
+        }
+
+        return new SuccessResponse();
     }
 }
