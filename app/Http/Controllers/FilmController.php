@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Responses\SuccessResponse;
 use App\Http\Responses\ErrorResponse;
-use App\services\PermissionService;
+use App\Http\Requests\AddFilmRequest;
+use App\Models\Film;
+use App\Jobs\AddFilmJob;
 class FilmController extends Controller
 {
     public function index(): SuccessResponse|ErrorResponse
@@ -14,12 +16,10 @@ class FilmController extends Controller
         return new SuccessResponse();
     }
 
-    public function store(Request $request): SuccessResponse|ErrorResponse
+    public function store(AddFilmRequest $request): SuccessResponse|ErrorResponse
     {
-        if (!PermissionService::checkPermission()) {
-            abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
-        }
-
+        $this->authorize('create', Film::class);
+        AddFilmJob::dispatch($request->imdbId);
         return new SuccessResponse([], Response::HTTP_CREATED);
     }
 
@@ -30,9 +30,7 @@ class FilmController extends Controller
 
     public function update(Request $request,int $id): SuccessResponse|ErrorResponse
     {
-        if (!PermissionService::checkPermission()) {
-            abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
-        }
+        $this->authorize('update', Film::class);
 
         return new SuccessResponse();
     }

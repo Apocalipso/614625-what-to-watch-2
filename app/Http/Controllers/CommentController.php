@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Http\Responses\ErrorResponse;
 use App\Http\Responses\SuccessResponse;
 use App\Models\Comment;
-use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,21 +23,15 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
 
-        if (PermissionService::checkPermission($comment)) {
-            return new SuccessResponse();
-        }
-
-        abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
+        $this->authorize('update', $comment);
+        return new ApiSuccessResponse();
     }
 
     public function destroy(int $id): SuccessResponse|ErrorResponse
     {
         $comment = Comment::find($id);
 
-        if (PermissionService::checkPermission($comment)) {
-            return new SuccessResponse([], Response::HTTP_NO_CONTENT);
-        }
-
-        abort(Response::HTTP_FORBIDDEN, trans('auth.failed'));
+        $this->authorize('delete', $comment);
+        return new ApiSuccessResponse([], Response::HTTP_NO_CONTENT);
     }
 }
